@@ -1,1 +1,2 @@
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/sbailey27/sem/main.yml?branch=master)
+[![LICENSE](https://img.shields.io/github/license/sbailey27/sem.svg?style=flat-square)](https://github.com/sbailey27/sem/blob/master/LICENSE)
