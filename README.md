@@ -1,4 +1,4 @@
-Build badge:
+<!--Build badge:-->
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/sbailey27/sem/main.yml?branch=master)
 
 License badge:
