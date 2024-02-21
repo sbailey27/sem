@@ -103,6 +103,7 @@ public class App
                             + "inner join departments as dt on dm.dept_no = dt.dept_no "
                             + "WHERE e.emp_no = " + ID;
 
+
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
