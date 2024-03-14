@@ -16,12 +16,12 @@ public class App
         a.connect();
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getAllSalaries();
+        ArrayList<Employee> employees = a.getSalariesByRole();
 
         // Test the size of the returned data - should be 240124
         System.out.println(employees.size());
 
-        a.printSalaries(employees);
+        a.printSalariesByRole(employees);
 
 
         // Disconnect from database
@@ -96,7 +96,7 @@ public class App
      * Gets all the current employees and salaries.
      * @return A list of all employees and salaries, or null if there is an error.
      */
-    public ArrayList<Employee> getAllSalaries()
+    public ArrayList<Employee> getSalariesByRole()
     {
         try
         {
@@ -138,7 +138,7 @@ public class App
      * Prints a list of employees.
      * @param employees The list of employees to print.
      */
-    public void printSalaries(ArrayList<Employee> employees)
+    public void printSalariesByRole(ArrayList<Employee> employees)
     {
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
