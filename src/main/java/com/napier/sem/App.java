@@ -16,13 +16,12 @@ public class App
         a.connect();
 
         // Extract employee salary information
-        ArrayList<Employee> employees = a.getSalariesByRole();
+        ArrayList<Employee> employees = a.getAllSalaries();
 
         // Test the size of the returned data - should be 240124
         System.out.println(employees.size());
 
-        a.printSalariesByRole(employees);
-
+        a.printSalaries(employees);
 
         // Disconnect from database
         a.disconnect();
@@ -96,7 +95,7 @@ public class App
      * Gets all the current employees and salaries.
      * @return A list of all employees and salaries, or null if there is an error.
      */
-    public ArrayList<Employee> getSalariesByRole()
+    public ArrayList<Employee> getAllSalaries()
     {
         try
         {
@@ -104,14 +103,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary " +
-                            " FROM employees, salaries, titles " +
-                            " WHERE employees.emp_no = salaries.emp_no " +
-                            " AND employees.emp_no = titles.emp_no " +
-                            " AND salaries.to_date = '9999-01-01' " +
-                            " AND titles.to_date = '9999-01-01' " +
-                            " AND titles.title = 'Engineer' " +
-                            " ORDER BY employees.emp_no ASC ";
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary "
+                            + "FROM employees, salaries "
+                            + "WHERE employees.emp_no = salaries.emp_no AND salaries.to_date = '9999-01-01' "
+                            + "ORDER BY employees.emp_no ASC";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract employee information
@@ -138,7 +133,7 @@ public class App
      * Prints a list of employees.
      * @param employees The list of employees to print.
      */
-    public void printSalariesByRole(ArrayList<Employee> employees)
+    public void printSalaries(ArrayList<Employee> employees)
     {
         // Print header
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
@@ -152,6 +147,6 @@ public class App
         }
     }
 
-    }
+}
 
 
