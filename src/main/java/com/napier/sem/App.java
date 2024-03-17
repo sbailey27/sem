@@ -16,7 +16,7 @@ public class App {
         ArrayList<Employee> employees = a.getSalariesByRole();
 
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+        //System.out.println(employees.size());
 
         a.printSalariesByRole(employees);
 
@@ -24,22 +24,30 @@ public class App {
         ArrayList<Employee> employeesAll = a.getAllSalaries();
 
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+        //System.out.println(employees.size());
 
         a.printSalaries(employeesAll);
 
         // Extract employee salary information
-        ArrayList<Employee> employeesByDept = a.getSalariesByDepartment("Sales");
+        ArrayList<Employee> employeesByDept = a.getSalariesByDepartment();
 
         // Test the size of the returned data - should be 240124
-        System.out.println(employees.size());
+        //System.out.println(employees.size());
 
-        a.printSalariesByRole(employees);
+        a.printSalariesByDepartment(employeesByDept);
+
+        ArrayList<Department> department = a.getDepartment();
+
+        a.printGetDepartment(department);
+
+
 
 
         // Disconnect from database
         a.disconnect();
     }
+
+
 
     /**
      * Connection to MySQL database.
@@ -137,6 +145,8 @@ public class App {
      */
     public void printSalariesByRole(ArrayList<Employee> employees) {
         // Print header
+        System.out.println(String.format(""));
+        System.out.println(String.format("Salaries By Role"));
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
         for (Employee emp : employees) {
@@ -190,6 +200,8 @@ public class App {
      */
     public void printSalaries(ArrayList<Employee> employeesAll) {
         // Print header
+        System.out.println(String.format(""));
+        System.out.println(String.format("Employee Salaries"));
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
         for (Employee emp : employeesAll) {
@@ -200,17 +212,73 @@ public class App {
         }
     }
 
-    public Department getDepartment(int dept_no){
+    public ArrayList<Department> getDepartment() {
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect = "SELECT * FROM departments"; // No need to filter by dept_no if you want all departments
 
-        return null;
-    };
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Extract department information
+            ArrayList<Department> departments = new ArrayList<>();
+            while (rset.next()) {
+                Department dept = new Department();
+                dept.dept_no = rset.getString("dept_no"); // Use column name directly
+                dept.dept_name = rset.getString("dept_name"); // Use column name directly
+                departments.add(dept);
+            }
+            return departments;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get department details");
+            return null;
+        }
+    }
 
-    public Department getDepartment(String dept_name){
 
-        return null;
-    };
+    public void printGetDepartment(ArrayList<Department> departments) {
+        // Print header
+        System.out.println(String.format(""));
+        System.out.println(String.format("Department List"));
+        System.out.println(String.format("%-10s %-15s ", "Dept No.", "Dept Name"));
+        // Loop over all employees in the list
+        for (Department dept : departments) {
+            String dept_string =
+                    String.format("%-10s %-15s ",
+                            dept.dept_no, dept.dept_name);
+            System.out.println(dept_string);
+        }
+    }
 
-    public ArrayList<Employee> getSalariesByDepartment(String dept){
+    /**
+    public Department getDepartmentName(String dept_name) {
+        try {
+            Statement stmt = con.createStatement();
+            String strSelect =
+                    "SELECT * FROM departments WHERE dept_name = '" + dept_name + "'";
+
+            ResultSet rset = stmt.executeQuery(strSelect);
+            if (rset.next()) {
+                Department department = new Department();
+                department.rset.getInt("dept_no");
+                department.setDept_name(rset.getString("dept_name"));
+                department.setDept_manager(rset.getInt("dept_manager"));
+                // You can set other department properties as needed
+                return department;
+            } else {
+                System.out.println("Department not found for department name: " + dept_name);
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get department details");
+            return null;
+        }
+    }
+*/
+
+
+
+    public ArrayList<Employee> getSalariesByDepartment(){
     try {
         // Create an SQL statement
         Statement stmt = con.createStatement();
@@ -222,22 +290,22 @@ public class App {
                         "AND employees.emp_no = dept_emp.emp_no " +
                         "AND dept_emp.dept_no = departments.dept_no " +
                         "AND salaries.to_date = '9999-01-01' " +
-                        "AND departments.dept_no = '<dept_no>' " +
-                        "ORDER BY employees.emp_no ASC";
+                        "AND departments.dept_no = 'd009' " +
+                        "ORDER BY employees.emp_no ASC LIMIT 10";
 
         // Execute SQL statement
         ResultSet rset = stmt.executeQuery(strSelect);
         // Extract employee information
-        ArrayList<Employee> employees = new ArrayList<Employee>();
+        ArrayList<Employee> employeesByDept = new ArrayList<Employee>();
         while (rset.next()) {
             Employee emp = new Employee();
             emp.emp_no = rset.getInt("employees.emp_no");
             emp.first_name = rset.getString("employees.first_name");
             emp.last_name = rset.getString("employees.last_name");
             emp.salary = rset.getInt("salaries.salary");
-            employees.add(emp);
+            employeesByDept.add(emp);
         }
-        return employees;
+        return employeesByDept;
     } catch (Exception e) {
         System.out.println(e.getMessage());
         System.out.println("Failed to get salary details");
@@ -251,6 +319,8 @@ public class App {
      */
     public void printSalariesByDepartment(ArrayList<Employee> employeesByDept) {
         // Print header
+        System.out.println(String.format(""));
+        System.out.println(String.format("Salaries By Department"));
         System.out.println(String.format("%-10s %-15s %-20s %-8s", "Emp No", "First Name", "Last Name", "Salary"));
         // Loop over all employees in the list
         for (Employee emp : employeesByDept) {
