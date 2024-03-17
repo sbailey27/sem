@@ -269,7 +269,7 @@ public class App {
     public ArrayList<Department> getDepartment() {
         try {
             Statement stmt = con.createStatement();
-            String strSelect = "SELECT * FROM departments"; // No need to filter by dept_no if you want all departments
+            String strSelect = "SELECT * FROM departments";
 
             ResultSet rset = stmt.executeQuery(strSelect);
             // Extract department information
