@@ -47,8 +47,6 @@ public class App {
         a.printSalariesByDepartment(employeesByDept);
 
 
-
-
         // Disconnect from database
         a.disconnect();
     }
@@ -252,7 +250,14 @@ public class App {
      *
      * @param employeesAll The list of employees to print.
      */
-    public void printSalaries(ArrayList<Employee> employeesAll) {
+    public void printSalaries(ArrayList<Employee> employeesAll)
+        {
+            // Check employees is not null
+            if (employeesAll == null)
+            {
+                System.out.println("No employees");
+                return;
+            }
         // Print header
         System.out.println(String.format(""));
         System.out.println(String.format("Employee Salaries"));
