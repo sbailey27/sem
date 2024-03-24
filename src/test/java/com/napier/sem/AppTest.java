@@ -33,13 +33,48 @@ public class AppTest
     @Test
     void printSalariesTestContainsNull()
     {
-        ArrayList<Employee> employess = new ArrayList<Employee>();
-        employess.add(null);
-        app.printSalaries(employess);
+        ArrayList<Employee> employeesAll = new ArrayList<Employee>();
+        employeesAll.add(null);
+        app.printSalaries(employeesAll);
     }
 
     @Test
     void printSalaries()
+    {
+        ArrayList<Employee> employeesAll = new ArrayList<Employee>();
+        Employee emp = new Employee();
+        emp.emp_no = 1;
+        emp.first_name = "Kevin";
+        emp.last_name = "Chalmers";
+        emp.title = "Engineer";
+        emp.salary = 55000;
+        employeesAll.add(emp);
+        app.printSalaries(employeesAll);
+    }
+
+    @Test
+    void printSalariesByRoleTestNull()
+    {
+        app.printSalariesByRole(null);
+    }
+
+    @Test
+    void printSalariesByRoleTestEmpty()
+    {
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        app.printSalariesByRole(employees);
+    }
+
+    @Test
+    void printSalariesByRoleTestContainsNull()
+    {
+        ArrayList<Employee> employees = new ArrayList<Employee>();
+        employees.add(null);
+        app.printSalariesByRole(employees);
+    }
+
+    @Test
+    void printSalariesByRole()
     {
         ArrayList<Employee> employees = new ArrayList<Employee>();
         Employee emp = new Employee();
@@ -49,8 +84,45 @@ public class AppTest
         emp.title = "Engineer";
         emp.salary = 55000;
         employees.add(emp);
-        app.printSalaries(employees);
+        app.printSalariesByRole(employees);
     }
+
+    @Test
+    void printSalariesByDepartmentTestNull()
+    {
+        app.printSalariesByDepartment(null);
+    }
+
+    @Test
+    void printSalariesByDepartmentTestEmpty()
+    {
+        ArrayList<Employee> employeesByDept = new ArrayList<Employee>();
+        app.printSalariesByDepartment(employeesByDept);
+    }
+
+    @Test
+    void printSSalariesByDepartmentTestContainsNull()
+    {
+        ArrayList<Employee> employeesByDept = new ArrayList<Employee>();
+        employeesByDept.add(null);
+        app.printSalariesByDepartment(employeesByDept);
+    }
+
+    @Test
+    void printSalariesByDepartment()
+    {
+        ArrayList<Employee> employeesByDept = new ArrayList<Employee>();
+        Employee emp = new Employee();
+        emp.emp_no = 1;
+        emp.first_name = "Kevin";
+        emp.last_name = "Chalmers";
+        emp.title = "Engineer";
+        emp.salary = 55000;
+        employeesByDept.add(emp);
+        app.printSalariesByDepartment(employeesByDept);
+    }
+
+
 
 }
 
