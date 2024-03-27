@@ -15,5 +15,8 @@ License
 Release
 [![Releases](https://img.shields.io/github/release/sbailey27/sem/all.svg?style=flat-square)](https://github.com/sbailey27/sem/releases)
 
+<!--Code Coverage Badge:-->
+[![codecov](https://codecov.io/gh/sbailey27/sem/graph/badge.svg?token=3WX8S0Y050)](https://codecov.io/gh/sbailey27/sem)
+
 
 
